@@ -18,23 +18,12 @@ const QueryForm: React.FC<{ sendQueryParams: (params: string) => void }> = ({ se
             searchByText: false
         }
     })
-    const [age, setAge] = useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
 
     const onSubmit = (form: any) => {
         const searchFields = ['Name', 'Text', 'Type']
         console.log(form)
         let params = '?'
         searchFields.forEach((f)=> form[`searchBy${f}`] && (params += `${f.toLowerCase()}=${form.queryStr}&`))
-        // for (let f of searchFields) {
-        //     if (form[`searchBy${f}`]) {
-        //         params += `${f.toLowerCase()}=${form.queryStr}&`
-        //     }
-        // }
-        console.log(params.at(-1) === '&' ? params.slice(0, -1) : params)
         sendQueryParams(params.at(-1) === '&' ? params.slice(0, -1) : params)
     }
 
