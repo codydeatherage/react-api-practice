@@ -1,18 +1,12 @@
 import { defer, useLoaderData } from 'react-router-dom'
 import { QueryClient } from '@tanstack/react-query'
-import axios from 'axios'
-
-const getOneCard = async (id: string) => {
-    return await axios
-        .get(`https://api.magicthegathering.io/v1/cards?id=${id}`)
-        .then((res) => res.data.cards)
-}
+import { getOneCard } from './queries/cards'
 
 export const loader = (queryClient: QueryClient) =>
     async ({ params }: any) => {
         const cards = await queryClient.fetchQuery(
             ['oneCard'],
-            async () => await getOneCard(params?.id)
+            () => getOneCard(params.id)
         )
         return defer({ card: cards[0] })
     }

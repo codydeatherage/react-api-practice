@@ -1,14 +1,6 @@
-import { useState } from 'react'
 import { Box, Button, TextField, FormControl, SelectChangeEvent, FormGroup, FormLabel } from "@mui/material"
 import { useForm } from 'react-hook-form'
 import FormCheckbox from './components/FormCheckbox'
-
-interface CardsRequest {
-    queryStr: string
-    searchByName: boolean
-    searchByType: boolean
-    searchByText: boolean
-}
 
 const QueryForm: React.FC<{ sendQueryParams: (params: string) => void }> = ({ sendQueryParams }) => {
     const { register, control, handleSubmit, watch, formState: { errors } } = useForm<CardsRequest>({
@@ -26,7 +18,6 @@ const QueryForm: React.FC<{ sendQueryParams: (params: string) => void }> = ({ se
         searchFields.forEach((f)=> form[`searchBy${f}`] && (params += `${f.toLowerCase()}=${form.queryStr}&`))
         sendQueryParams(params.at(-1) === '&' ? params.slice(0, -1) : params)
     }
-
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

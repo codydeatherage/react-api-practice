@@ -57,3 +57,10 @@ interface CardResponse {
   legalities: Legality[];
   id: string;
 }
+
+interface CardsRequest {
+  queryStr: string
+  searchByName: boolean
+  searchByType: boolean
+  searchByText: boolean
+}

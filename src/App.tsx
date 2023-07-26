@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import useCards from './queries/useCards'
+import useCards from './hooks/useCards'
 import QueryForm from './QueryForm'
 import SearchResults from './components/SearchResults'
-import { Box, Grid } from '@mui/material'
+import { Box } from '@mui/material'
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     if (data && params) refetch()
   }, [params])
 
-  const sendQueryParams = (params: string) =>{
+  const sendQueryParams = (params: string) => {
     setParams(params)
   }
 
@@ -23,11 +23,9 @@ function App() {
 
   return (
     <Box sx={{ outline: '1px solid red', textAlign: 'center', display: 'flex', flexDirection: 'column' }}>
-      <QueryForm sendQueryParams={sendQueryParams}/>
-      <Grid container spacing={0.5} sx={{ display: 'flex', width: 'fit-content', margin: 'auto', flexWrap: 'wrap', outline: '1px solid green', justifyContent: 'center'}}>
-        {data && !isFetching && <SearchResults results={data} />}
-        <div>{isFetching ? 'Updating...' : ''}</div>
-      </Grid>
+      <QueryForm sendQueryParams={sendQueryParams} />
+      <div>{isFetching ? 'Updating...' : ''}</div>
+      {data && !isFetching && <SearchResults results={data} />}
     </Box>
 
   )
